@@ -18,6 +18,7 @@ class GuessPage extends StatefulWidget {
 
 class _GuessPageState extends State<GuessPage> {
   int _value = 0;
+  bool _guessing = false;
 
   void _generateRandomValue() {
     setState(() {
