@@ -23,7 +23,7 @@ class GuessAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Center(
         child: TextField( //中间部份
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.number, // 只能输入数字
           decoration: InputDecoration( // 装饰
             filled: true, // 填充
             fillColor: Color(0xffF3F6F9), // 填充颜色
