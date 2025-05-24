@@ -30,7 +30,7 @@ class CountPanel extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            "功德数: 0",
+            "功德数: $count",
             style: TextStyle(
               color: Colors.black,
               fontSize: 28,
