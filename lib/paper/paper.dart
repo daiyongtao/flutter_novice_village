@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_novice_village/paper/conform_dialog.dart';
-import 'package:flutter_novice_village/paper/color_selector.dart';
-import 'package:flutter_novice_village/paper/stroke_width_selector.dart';
+import 'package:flutter_novice_village/paper/selector/color_selector.dart';
+import 'package:flutter_novice_village/paper/selector/stroke_width_selector.dart';
 import 'line.dart';
 import 'paper_app_bar.dart';
 import 'paper_painter.dart';
@@ -45,22 +45,22 @@ class _PaperState extends State<Paper> {
               )
           ),
           Positioned(
-              bottom: 20,
-              right: 20,
-              child: StrokeWidthSelector(
-                  supportStrokeWidths: supportStrokeWidths,
-                  color: supportColors[_curColorIndex],
-                  onSelect: _onSelectStrokeWidth,
-                  index: _curStrokeWidthIndex),
+              bottom: 10,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  Expanded(child: ColorSelector(
+                      supportColors: supportColors,
+                      onSelect: _onSelectColor,
+                      index: _curColorIndex)),
+                  StrokeWidthSelector(
+                      supportStrokeWidths: supportStrokeWidths,
+                      color: supportColors[_curColorIndex],
+                      onSelect: _onSelectStrokeWidth,
+                      index: _curStrokeWidthIndex)
+                ],
+              )
           ),
-          Positioned(
-              left: 10,
-              bottom: 40,
-              width: 300, // 配置最大宽度，避免颜色太多时，布局溢出（ColorSelector内部使用 wrap，可以自动换行）
-              child: ColorSelector(
-                  supportColors: supportColors,
-                  onSelect: _onSelectColor,
-                  index: _curColorIndex))
         ],
       )
     );

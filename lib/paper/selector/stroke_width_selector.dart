@@ -18,7 +18,7 @@ class StrokeWidthSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(supportStrokeWidths.length, _buildByIndex)

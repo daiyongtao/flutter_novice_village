@@ -17,7 +17,7 @@ class ColorSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       child: Wrap(
         direction: Axis.horizontal,
         children: List.generate(supportColors.length, _buildByIndex)
