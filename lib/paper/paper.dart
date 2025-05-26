@@ -3,7 +3,7 @@ import 'package:flutter_novice_village/paper/conform_dialog.dart';
 import 'package:flutter_novice_village/paper/selector/color_selector.dart';
 import 'package:flutter_novice_village/paper/selector/stroke_width_selector.dart';
 import 'line.dart';
-import 'paper_app_bar.dart';
+import 'paper_app_bar/paper_app_bar.dart';
 import 'paper_painter.dart';
 
 /*画板绘制页*/
@@ -30,10 +30,17 @@ class _PaperState extends State<Paper> {
   // 支持的粗细
   final List<double> supportStrokeWidths = [1, 2, 4, 6, 8, 10];
 
+  // 后悔药（向前回退，撤销回退）
+  final List<Line> _historyLines = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PaperAppBar(onClear: _showClearDialog, lines: _lines),
+      appBar: PaperAppBar(
+        onClear: _showClearDialog,
+        lines: _lines,
+        onBack: _lines.isEmpty ? null : _back,
+        onRevocation: _historyLines.isEmpty ? null : _revocation),
       body: Stack(
         children: [
           GestureDetector(
@@ -84,6 +91,20 @@ class _PaperState extends State<Paper> {
             onConform: _clear
         )
     );
+  }
+
+  // 回退
+  void _back() {
+    var lastLine = _lines.removeLast();
+    _historyLines.add(lastLine);
+    setState(() { });
+  }
+
+  // 撤销回退
+  void _revocation() {
+    var lastLine = _historyLines.removeLast();
+    _lines.add(lastLine);
+    setState(() { });
   }
 
   // 关闭弹窗
