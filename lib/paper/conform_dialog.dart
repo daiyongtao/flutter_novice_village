@@ -27,7 +27,7 @@ class ConformDailog extends StatelessWidget {
           children: <Widget>[
             _buildTitle(),
             _buildContent(),
-            _buildButtons()
+            _buildButtons(context)
           ],
         ),
       ),
@@ -59,29 +59,23 @@ class ConformDailog extends StatelessWidget {
     );
   }
 
-  Widget _buildButtons() {
+  Widget _buildButtons(BuildContext context) {
     return Align( // 布局右下角
         alignment: Alignment.bottomRight,
         child:  Wrap(
           spacing: 8,
           direction: Axis.horizontal,
           children: [
-            _buildBorderTextButton("取消", Colors.grey, Colors.grey, Colors.white, _cancel),
-            _buildBorderTextButton("确定", Colors.red, Colors.white, Colors.red, _confirm)
+            _buildBorderTextButton("取消", Colors.grey, Colors.grey, Colors.white, () => _cancel(context)),
+            _buildBorderTextButton("确定", Colors.red, Colors.white, Colors.red, onConform)
           ],
         )
     );
   }
 
-  void _cancel() {
-
+  void _cancel(BuildContext context) {
+    Navigator.pop(context);
   }
-
-  void _confirm() {
-
-  }
-
-  // const Border activeBorder = Border.fromBorderSide(BorderSide(color: Colors.blue));
 
   Widget _buildBorderTextButton(String title, Color color, Color textColor, Color bgColor, VoidCallback callBack) {
 
@@ -100,11 +94,7 @@ class ConformDailog extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(bgColor), // 设置按钮的背景颜色
             foregroundColor: MaterialStateProperty.all<Color>(textColor), // 设置按钮文本和图标的颜色
           ),
-          child: Text(title, style: TextStyle(fontSize: 14, color: textColor)
-          // child: Container(
-          //   color: bgColor,
-          //   child: Text(title, style: TextStyle(fontSize: 14, color: textColor))
-          )
+          child: Text(title, style: TextStyle(fontSize: 14, color: textColor))
         )
     );
   }

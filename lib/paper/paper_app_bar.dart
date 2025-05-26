@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_novice_village/paper/line.dart';
 
 /*画板导航栏*/
 class PaperAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onClear;
+  final List<Line> lines;
 
-  const PaperAppBar({super.key, required this.onClear});
+  const PaperAppBar({super.key, required this.onClear, required this.lines});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,10 @@ class PaperAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [ // 右侧列表
         IconButton(
-            splashRadius: 30,
-            onPressed: onClear,
-            icon: Icon(Icons.delete_sharp)
+          splashRadius: 30,
+          onPressed: lines.isEmpty ? null : onClear,
+          icon: Icon(Icons.delete_sharp),
+          disabledColor: Colors.grey,
         )
       ],
     );

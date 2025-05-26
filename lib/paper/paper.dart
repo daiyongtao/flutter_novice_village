@@ -13,8 +13,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  List<Line> _lines = []; // 线列表（每一条线抽象成Line模型，每一条线由多个点(line.points)组成）
-
+  final List<Line> _lines = []; // 线列表（每一条线抽象成Line模型，每一条线由多个点(line.points)组成）
   int _curColorIndex = 0; // 当前线条绘制颜色index
   int _curStrokeWidthIndex = 0; // 当前线条粗细index
 
@@ -31,7 +30,7 @@ class _PaperState extends State<Paper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PaperAppBar(onClear: _showClearDialog),
+      appBar: PaperAppBar(onClear: _showClearDialog, lines: _lines),
       body: GestureDetector(
         onPanStart: _onPanStart,
           onPanUpdate: _onPanUpdate,
@@ -46,8 +45,8 @@ class _PaperState extends State<Paper> {
   // 清除
   void _clear() {
     _lines.clear();
+    _closeDialog(context);
     setState(() {
-
     });
   }
 
@@ -61,6 +60,11 @@ class _PaperState extends State<Paper> {
             onConform: _clear
         )
     );
+  }
+
+  // 关闭弹窗
+  void _closeDialog(BuildContext context) {
+    Navigator.pop(context);
   }
 
   /// 拖拽开始，添加当前画线的第一个点
