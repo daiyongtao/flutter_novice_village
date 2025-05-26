@@ -18,11 +18,10 @@ class ColorSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-      child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: List.generate(supportColors.length, _buildByIndex)
-      ),
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: List.generate(supportColors.length, _buildByIndex)
+      )
     );
   }
 

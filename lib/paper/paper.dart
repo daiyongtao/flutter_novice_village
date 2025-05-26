@@ -23,7 +23,8 @@ class _PaperState extends State<Paper> {
   final List<Color> supportColors = [
     Colors.black, Colors.red, Colors.orange,
     Colors.yellow, Colors.green, Colors.blue,
-    Colors.indigo, Colors.purple,
+    Colors.indigo, Colors.purple, Colors.cyan,
+    Colors.brown, Colors.grey
   ];
 
   // 支持的粗细
@@ -55,6 +56,7 @@ class _PaperState extends State<Paper> {
           Positioned(
               left: 10,
               bottom: 40,
+              width: 300, // 配置最大宽度，避免颜色太多时，布局溢出（ColorSelector内部使用 wrap，可以自动换行）
               child: ColorSelector(
                   supportColors: supportColors,
                   onSelect: _onSelectColor,
