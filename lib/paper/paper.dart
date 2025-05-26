@@ -123,10 +123,13 @@ class _PaperState extends State<Paper> {
 
   /// 拖拽中，将点添加进line数组中
   void _onPanUpdate(DragUpdateDetails details) {
-    _lines.last.points.add(details.localPosition);
-    setState(() {
-
-    });
+    Offset point = details.localPosition;
+    double distance = (_lines.last.points.last - point).distance;
+    if (distance > 5) {
+      _lines.last.points.add(details.localPosition);
+      // print("哈哈 - ${details.localPosition}");
+      setState(() { });
+    }
   }
 
   // 粗细选择器点击事件
