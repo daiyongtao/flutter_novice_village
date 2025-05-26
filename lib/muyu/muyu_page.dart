@@ -53,7 +53,7 @@ class _MuyuPageState extends State<MuyuPage> {
   /// 默认声音
   String get voiceSrc => voiceOptions[_voiceCurIndex].src;
 
-  // ----- 选择图片选项 -----
+  // ----- 功德记录 -----
   List<MeritRecord> _records = [];
   final Uuid uuid = Uuid();
   MeritRecord? _curRecord;
@@ -67,7 +67,7 @@ class _MuyuPageState extends State<MuyuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MuyuAppBar(),
+      appBar: MuyuAppBar(records: _records),
       body: Column(
         children: [
           // 平分上下两部分

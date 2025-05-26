@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_novice_village/muyu/history/merit_record.dart';
+import 'package:flutter_novice_village/muyu/history/merit_records_page.dart';
 
 /*电子木鱼导航栏*/
 class MuyuAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MuyuAppBar({super.key});
+  final List records;
+
+  const MuyuAppBar({super.key, required this.records});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +35,19 @@ class MuyuAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [ // 右侧列表
         IconButton(
             splashRadius: 30,
-            onPressed: _toHistory,
+            onPressed: () => _toHistory(context),
             icon: Icon(Icons.history, color: Colors.black)
         )
       ],
     );
   }
 
-  void _toHistory() {
-    print("哈哈 - 跳转进入历史记录");
+  void _toHistory(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (_) => MeritRecordsPage(records: records.reversed.toList() as List<MeritRecord>),
+      )
+    );
   }
 
   @override
