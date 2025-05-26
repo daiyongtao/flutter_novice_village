@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_novice_village/paper/conform_dialog.dart';
+import 'package:flutter_novice_village/paper/color_selector.dart';
+import 'package:flutter_novice_village/paper/stroke_width_selector.dart';
 import 'line.dart';
 import 'paper_app_bar.dart';
 import 'paper_painter.dart';
@@ -31,13 +33,33 @@ class _PaperState extends State<Paper> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PaperAppBar(onClear: _showClearDialog, lines: _lines),
-      body: GestureDetector(
-        onPanStart: _onPanStart,
-          onPanUpdate: _onPanUpdate,
-        child: CustomPaint(
-          painter: PaperPainter(lines: _lines),
-          child: ConstrainedBox(constraints: const BoxConstraints.expand()),
-        )
+      body: Stack(
+        children: [
+          GestureDetector(
+              onPanStart: _onPanStart,
+              onPanUpdate: _onPanUpdate,
+              child: CustomPaint(
+                painter: PaperPainter(lines: _lines),
+                child: ConstrainedBox(constraints: const BoxConstraints.expand()),
+              )
+          ),
+          Positioned(
+              bottom: 20,
+              right: 20,
+              child: StrokeWidthSelector(
+                  supportStrokeWidths: supportStrokeWidths,
+                  color: supportColors[_curColorIndex],
+                  onSelect: _onSelectStrokeWidth,
+                  index: _curStrokeWidthIndex),
+          ),
+          Positioned(
+              left: 10,
+              bottom: 40,
+              child: ColorSelector(
+                  supportColors: supportColors,
+                  onSelect: _onSelectColor,
+                  index: _curColorIndex))
+        ],
       )
     );
   }
@@ -69,7 +91,11 @@ class _PaperState extends State<Paper> {
 
   /// 拖拽开始，添加当前画线的第一个点
   void _onPanStart(DragStartDetails details) {
-    _lines.add(Line(points: [details.localPosition]));
+    _lines.add(Line(
+      points: [details.localPosition],
+      strokeWidth: supportStrokeWidths[_curStrokeWidthIndex],
+      color: supportColors[_curColorIndex]
+    ));
   }
 
   /// 拖拽中，将点添加进line数组中
@@ -78,5 +104,23 @@ class _PaperState extends State<Paper> {
     setState(() {
 
     });
+  }
+
+  // 粗细选择器点击事件
+  void _onSelectStrokeWidth(int index) {
+    if (index != _curStrokeWidthIndex) {
+      setState(() {
+        _curStrokeWidthIndex = index;
+      });
+    }
+  }
+
+  // 颜色选择器点击事件
+  void _onSelectColor(int index) {
+    if (index != _curColorIndex) {
+      setState(() {
+        _curColorIndex = index;
+      });
+    }
   }
 }

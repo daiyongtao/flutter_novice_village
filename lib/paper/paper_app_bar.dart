@@ -34,10 +34,6 @@ class PaperAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  void _delete(BuildContext context) {
-    // 删除
-  }
-
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
