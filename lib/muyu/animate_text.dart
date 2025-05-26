@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_novice_village/muyu/history/merit_record.dart';
 
 class AnimateText extends StatefulWidget {
-  final String text;
-  const AnimateText({super.key, required this.text});
+  final MeritRecord record;
+  const AnimateText({super.key, required this.record});
 
   @override
   State<StatefulWidget> createState() => _FadTextState();
@@ -28,7 +29,9 @@ class _FadTextState extends State<AnimateText> with SingleTickerProviderStateMix
   @override
   void didUpdateWidget(covariant AnimateText oldWidget) {
     super.didUpdateWidget(oldWidget);
-    controller.forward(from: 0);
+    if (oldWidget.record.id != widget.record.id) {
+      controller.forward(from: 0);
+    }
   }
 
   @override
@@ -45,7 +48,7 @@ class _FadTextState extends State<AnimateText> with SingleTickerProviderStateMix
           position: position,
           child: FadeTransition( // 透明度动画
             opacity: opacity,
-            child: Text(widget.text),
+            child: Text("功德 +${widget.record.value}"),
           )),
     );
   }
