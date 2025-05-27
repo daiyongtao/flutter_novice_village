@@ -5,6 +5,8 @@ import 'package:flutter_novice_village/guess/guess_page.dart';
 import 'package:flutter_novice_village/muyu/muyu_page.dart';
 import 'package:flutter_novice_village/paper/paper.dart';
 
+import 'net_article/views/net_article_page.dart';
+
 /// 整体页面结构（页面page + 底部bottomBar）
 /// 切换bottomBar时，会切换page
 class AppNavigation extends StatefulWidget {
@@ -22,6 +24,7 @@ class _AppNavigationState extends State<AppNavigation> {
     AppBottomBarItemData(title: '猜数字', iconData: Icons.question_mark),
     AppBottomBarItemData(title: '电子木鱼', iconData: Icons.my_library_music_outlined),
     AppBottomBarItemData(title: '画板', iconData: Icons.palette_outlined),
+    AppBottomBarItemData(title: '网络文章', iconData: Icons.article_outlined)
   ];
 
   @override
@@ -51,7 +54,8 @@ class _AppNavigationState extends State<AppNavigation> {
       children: const [
         GuessPage(),
         MuyuPage(),
-        Paper()
+        Paper(),
+        NetArticlePage()
       ],
     );
   }
