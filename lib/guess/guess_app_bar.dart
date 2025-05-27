@@ -13,14 +13,7 @@ class GuessAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent
-      ),
-      leading: Icon( // 左侧
-          Icons.menu, color: Colors.black
-      ),
+      leading: Icon(Icons.menu),
       title: Center(
         child: TextField( //中间部份
           keyboardType: TextInputType.number, // 只能输入数字

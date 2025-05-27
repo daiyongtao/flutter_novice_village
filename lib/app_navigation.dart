@@ -26,22 +26,22 @@ class _AppNavigationState extends State<AppNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: _buildContent(_index)),
-        AppBottomBar(
-            currentIndex: _index,
-            itemDatas: itemDatas,
-            onItemTap: _onChangePage)
-      ],
+    return Scaffold(
+      body: _buildContent(_index),
+      bottomNavigationBar: AppBottomBar(
+          currentIndex: _index,
+          itemDatas: itemDatas,
+          onItemTap: _onChangePage)
     );
   }
 
   void _onChangePage(int index) {
-    _pageController.jumpToPage(index);
-    setState(() {
-      _index = index;
-    });
+    if (index != _index) {
+      _pageController.jumpToPage(index);
+      setState(() {
+        _index = index;
+      });
+    }
   }
 
   Widget _buildContent(int index) {

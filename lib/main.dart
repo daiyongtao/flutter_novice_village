@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_novice_village/app_navigation.dart';
-import 'guess/guess_page.dart';
-import 'counter/counter_page.dart';
-import 'muyu/muyu_page.dart';
-import 'package:flutter_novice_village/paper/paper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,9 +15,22 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: Colors.white
+          ),
+          titleTextStyle: TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.bold
+          ),
+        )
       ),
-      // home: const GuessPage(title: '猜数字'),
-      // home: const Paper(),
       home: AppNavigation()
     );
   }

@@ -33,13 +33,6 @@ class _MeritRecordsPageState extends State<MeritRecordsPage> {
 
   /// 导航栏
   PreferredSizeWidget _buildAppBar() => AppBar(
-    iconTheme: const IconThemeData(color: Colors.black),
-    centerTitle: true,
-    title: Text(
-      "功德记录",
-      style: TextStyle(color: Colors.black, fontSize: 16),
-    ),
-    elevation: 0,
-    backgroundColor: Colors.white,
+    title: Text("功德记录")
   );
 }

@@ -19,18 +19,7 @@ class PaperAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      iconTheme: const IconThemeData(color: Colors.black),
-      title: Text(
-        "画板绘制",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.bold
-        ),
-      ),
+      title: Text("画板绘制"),
       leading: BackUpButtons(onBack: onBack, onRevocation: onRevocation),
       leadingWidth: 100,
       actions: [ // 右侧列表
