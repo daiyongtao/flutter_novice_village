@@ -6,7 +6,7 @@ import 'package:flutter_novice_village/muyu/muyu_page.dart';
 import 'package:flutter_novice_village/paper/paper.dart';
 
 /// 整体页面结构（页面page + 底部bottomBar）
-/// 切换bottomBar时，会切换page（重新创建）
+/// 切换bottomBar时，会切换page
 class AppNavigation extends StatefulWidget {
   AppNavigation({super.key});
 
