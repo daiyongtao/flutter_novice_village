@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_novice_village/net_article/model/article.dart';
@@ -32,7 +33,6 @@ class _ArticleContentState extends State<ArticleContent> {
     _articles = await api.fetchArticleList(_page);
     _isLoading = false;
     setState(() { });
-
   }
 
   @override
@@ -50,12 +50,27 @@ class _ArticleContentState extends State<ArticleContent> {
         ),
       );
     }
-    
-    
-    return ListView.builder(
-        itemExtent: 80,
-        itemCount: _articles.length,
-        itemBuilder: _buildItemByIndex,
+
+    return EasyRefresh(
+        header: const ClassicHeader(
+            dragText: '下拉刷新',
+            armedText: '释放刷新',
+            readyText: '开始加载',
+            processingText: '正在加载',
+            processedText: '刷新成功'
+        ),
+        onRefresh: _onRefresh,
+
+        footer: const ClassicFooter(
+            processingText: "正在加载"
+        ),
+        onLoad: _onLoadMore,
+
+        child: ListView.builder(
+            itemExtent: 80,
+            itemCount: _articles.length,
+            itemBuilder: _buildItemByIndex,
+        )
     );
   }
 
@@ -68,6 +83,21 @@ class _ArticleContentState extends State<ArticleContent> {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => ArticleDetailPage(article: article))
     );
+  }
+
+  /// 下拉刷新
+  void _onRefresh() async {
+    _page = 0;
+    _articles = await api.fetchArticleList(_page);
+    setState(() { });
+  }
+
+  /// 上拉加载更多
+  void _onLoadMore() async {
+    _page = _articles.length ~/ 20;
+    List<Article> newArticles = await api.fetchArticleList(_page);
+    _articles = _articles + newArticles;
+    setState(() {});
   }
 }
 
