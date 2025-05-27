@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter_novice_village/guess/result_notice.dart';
 import 'package:flutter_novice_village/guess/guess_app_bar.dart';
+import 'package:flutter_novice_village/sp_storage.dart';
 
 // 用于生成随机数
 Random _random = Random();
@@ -30,6 +31,7 @@ class _GuessPageState extends State<GuessPage> with AutomaticKeepAliveClientMixi
     setState(() {
       _value = _random.nextInt(100); //  0~99 之间的随机整数
       _guessing = true; // 点击按钮时，表示游戏开始
+      SpStorage.instance.saveGuessConfig(_guessing, _value);
       _isBig = null;
     });
   }
@@ -48,6 +50,8 @@ class _GuessPageState extends State<GuessPage> with AutomaticKeepAliveClientMixi
       setState(() {
         _isBig = null;
         _guessing = false;
+        // 如果猜对了，游戏结束，再更新以下存储数据
+        SpStorage.instance.saveGuessConfig(_guessing, 0);
       });
       return;
     }
@@ -56,6 +60,19 @@ class _GuessPageState extends State<GuessPage> with AutomaticKeepAliveClientMixi
     setState(() {
       _isBig = guessValue > _value;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initConfig();
+  }
+
+  void _initConfig() async {
+    ({bool guessing, int value}) config = await SpStorage.instance.readGuessConfig();
+    _guessing = config.guessing;
+    _value = config.value;
+    setState(() { });
   }
 
   @override
