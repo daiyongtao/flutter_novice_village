@@ -8,6 +8,7 @@ import 'package:flutter_novice_village/muyu/models/image_option.dart';
 import 'package:flutter_novice_village/muyu/muyu_app_bar.dart';
 import 'package:flutter_novice_village/muyu/count_panel.dart';
 import 'package:flutter_novice_village/muyu/options/select_image.dart';
+import 'package:flutter_novice_village/sp_storage.dart';
 import 'animate_text.dart';
 import 'models/voice_option.dart';
 import 'muyu_assets_image.dart';
@@ -65,6 +66,15 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
   void initState() {
     super.initState();
     _initAudioPool();
+    _initConfig();
+  }
+
+  void _initConfig() async{
+    ({int counter, int imageIndex, int voiceIndex}) config = await SpStorage.instance.readMuyuConfig();
+    _counter = config.counter;
+    _imageCurIndex = config.imageIndex;
+    _voiceCurIndex = config.voiceIndex;
+    setState(() { });
   }
 
   @override
@@ -97,6 +107,8 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
       // _random.nextInt(3) 生成一个 0～2的随机数
       _cruValue = knockValue;
       _counter += _cruValue;
+
+      _saveConfig();
 
       String id = uuid.v4();
       _curRecord = MeritRecord(
@@ -142,6 +154,7 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
     if (value == _imageCurIndex) return;
     setState(() {
       _imageCurIndex = value;
+      _saveConfig();
     });
   }
 
@@ -149,10 +162,15 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
     Navigator.of(context).pop();
     if (value == _voiceCurIndex) return;
     _voiceCurIndex = value;
+    _saveConfig();
 
     pool = await FlameAudio.createPool(
       voiceSrc,
       maxPlayers: 1,
     );
+  }
+
+  void _saveConfig() {
+    SpStorage.instance.saveMuyuConfig(_counter, _imageCurIndex, _voiceCurIndex);
   }
 }
