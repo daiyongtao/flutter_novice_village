@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_novice_village/app_navigation.dart';
 import 'guess/guess_page.dart';
 import 'counter/counter_page.dart';
 import 'muyu/muyu_page.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
       ),
       // home: const GuessPage(title: '猜数字'),
-      home: const Paper(),
+      // home: const Paper(),
+      home: AppNavigation()
     );
   }
 }

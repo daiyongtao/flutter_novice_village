@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_novice_village/app_bottom_bar/app_bottom_bar.dart';
+import 'package:flutter_novice_village/app_bottom_bar/app_bottom_bar_item_data.dart';
+import 'package:flutter_novice_village/guess/guess_page.dart';
+import 'package:flutter_novice_village/muyu/muyu_page.dart';
+import 'package:flutter_novice_village/paper/paper.dart';
+
+/// 整体页面结构（页面page + 底部bottomBar）
+/// 切换bottomBar时，会切换page（重新创建）
+class AppNavigation extends StatefulWidget {
+  AppNavigation({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _AppNavigationState();
+}
+
+class _AppNavigationState extends State<AppNavigation> {
+  int _index = 0;
+  
+  final List<AppBottomBarItemData> itemDatas = const [
+    AppBottomBarItemData(title: '猜数字', iconData: Icons.question_mark),
+    AppBottomBarItemData(title: '电子木鱼', iconData: Icons.my_library_music_outlined),
+    AppBottomBarItemData(title: '画板', iconData: Icons.palette_outlined),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(child: _buildContent(_index)),
+        AppBottomBar(
+            currentIndex: _index,
+            itemDatas: itemDatas,
+            onItemTap: _onChangePage)
+      ],
+    );
+  }
+
+  void _onChangePage(int index) {
+    setState(() {
+      _index = index;
+    });
+  }
+
+  Widget _buildContent(int index) {
+    if (index == 0) {
+      return GuessPage();
+    } else if (index == 1) {
+      return MuyuPage();
+    } else {
+      return Paper();
+    }
+  }
+}

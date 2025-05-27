@@ -9,8 +9,7 @@ import 'package:flutter_novice_village/guess/guess_app_bar.dart';
 Random _random = Random();
 
 class GuessPage extends StatefulWidget {
-  const GuessPage({super.key, required this.title});
-  final String title;
+  const GuessPage({super.key});
 
   @override
   State<GuessPage> createState() => _GuessPageState();
