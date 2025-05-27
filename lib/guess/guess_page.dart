@@ -15,13 +15,16 @@ class GuessPage extends StatefulWidget {
   State<GuessPage> createState() => _GuessPageState();
 }
 
-class _GuessPageState extends State<GuessPage> {
+class _GuessPageState extends State<GuessPage> with AutomaticKeepAliveClientMixin {
   // 随机数数值
   int _value = 0;
   // 是否在游戏过程中 (当 _guessing 为 false 时，支持点击，按钮呈蓝色；为 true 时，禁止点击，按钮呈灰色：)
   bool _guessing = false;
   // null：相等， true：大了，false：小了
   bool? _isBig;
+
+  @override
+  bool get wantKeepAlive => true;
 
   void _generateRandomValue() {
     setState(() {

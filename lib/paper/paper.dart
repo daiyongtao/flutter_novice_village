@@ -14,7 +14,7 @@ class Paper extends StatefulWidget {
   State<StatefulWidget> createState() => _PaperState();
 }
 
-class _PaperState extends State<Paper> {
+class _PaperState extends State<Paper> with AutomaticKeepAliveClientMixin {
   final List<Line> _lines = []; // 线列表（每一条线抽象成Line模型，每一条线由多个点(line.points)组成）
   int _curColorIndex = 0; // 当前线条绘制颜色index
   int _curStrokeWidthIndex = 0; // 当前线条粗细index
@@ -32,6 +32,9 @@ class _PaperState extends State<Paper> {
 
   // 后悔药（向前回退，撤销回退）
   final List<Line> _historyLines = [];
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

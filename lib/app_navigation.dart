@@ -16,6 +16,7 @@ class AppNavigation extends StatefulWidget {
 
 class _AppNavigationState extends State<AppNavigation> {
   int _index = 0;
+  final PageController _pageController = PageController();
   
   final List<AppBottomBarItemData> itemDatas = const [
     AppBottomBarItemData(title: '猜数字', iconData: Icons.question_mark),
@@ -37,18 +38,21 @@ class _AppNavigationState extends State<AppNavigation> {
   }
 
   void _onChangePage(int index) {
+    _pageController.jumpToPage(index);
     setState(() {
       _index = index;
     });
   }
 
   Widget _buildContent(int index) {
-    if (index == 0) {
-      return GuessPage();
-    } else if (index == 1) {
-      return MuyuPage();
-    } else {
-      return Paper();
-    }
+    return PageView(
+      physics: const NeverScrollableScrollPhysics(),
+      controller: _pageController,
+      children: const [
+        GuessPage(),
+        MuyuPage(),
+        Paper()
+      ],
+    );
   }
 }

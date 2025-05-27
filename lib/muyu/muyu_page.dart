@@ -21,7 +21,7 @@ class MuyuPage extends StatefulWidget {
   State<MuyuPage> createState() => _MuyuPageState();
 }
 
-class _MuyuPageState extends State<MuyuPage> {
+class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin {
   int _counter = 0;
   int _cruValue = 0;
   final Random _random = Random();
@@ -57,6 +57,9 @@ class _MuyuPageState extends State<MuyuPage> {
   List<MeritRecord> _records = [];
   final Uuid uuid = Uuid();
   MeritRecord? _curRecord;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
