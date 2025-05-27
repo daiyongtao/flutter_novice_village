@@ -8,7 +8,8 @@ import 'package:flutter_novice_village/muyu/models/image_option.dart';
 import 'package:flutter_novice_village/muyu/muyu_app_bar.dart';
 import 'package:flutter_novice_village/muyu/count_panel.dart';
 import 'package:flutter_novice_village/muyu/options/select_image.dart';
-import 'package:flutter_novice_village/sp_storage.dart';
+import 'package:flutter_novice_village/storage/db_storage.dart';
+import 'package:flutter_novice_village/storage/sp_storage.dart';
 import 'animate_text.dart';
 import 'models/voice_option.dart';
 import 'muyu_assets_image.dart';
@@ -74,6 +75,7 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
     _counter = config.counter;
     _imageCurIndex = config.imageIndex;
     _voiceCurIndex = config.voiceIndex;
+    _records = await DbStorage.instance.meritRecordDao.query();
     setState(() { });
   }
 
@@ -117,7 +119,11 @@ class _MuyuPageState extends State<MuyuPage> with AutomaticKeepAliveClientMixin 
           _cruValue,
           imageSrc,
           voiceOptions[_voiceCurIndex].name);
-      _records.add(_curRecord!);
+
+      if (_curRecord != null) {
+        _records.add(_curRecord!);
+        DbStorage.instance.meritRecordDao.insert(_curRecord!);
+      }
     });
   }
 

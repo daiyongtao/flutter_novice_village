@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter_novice_village/guess/result_notice.dart';
 import 'package:flutter_novice_village/guess/guess_app_bar.dart';
-import 'package:flutter_novice_village/sp_storage.dart';
+import 'package:flutter_novice_village/storage/sp_storage.dart';
 
 // 用于生成随机数
 Random _random = Random();
