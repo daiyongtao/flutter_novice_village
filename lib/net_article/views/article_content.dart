@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_novice_village/net_article/model/article.dart';
 import 'package:flutter_novice_village/net_article/views/article_detail_page.dart';
@@ -15,6 +16,8 @@ class _ArticleContentState extends State<ArticleContent> {
   List<Article> _articles = [];
   ArticleApi api = ArticleApi();
   int _page = 0;
+  /// 是否正在加载
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -23,14 +26,32 @@ class _ArticleContentState extends State<ArticleContent> {
   }
 
   void _loadData() async {
-    _articles = await api.fetchArticleList(_page);
-    setState(() {
+    _isLoading = true;
+    setState(() { });
 
-    });
+    _articles = await api.fetchArticleList(_page);
+    _isLoading = false;
+    setState(() { });
+
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Center(
+        child: Wrap(
+          spacing: 10,
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: const [
+            CupertinoActivityIndicator(),
+            Text("数据加载中，请稍后...",style: TextStyle(color: Colors.grey))
+          ],
+        ),
+      );
+    }
+    
+    
     return ListView.builder(
         itemExtent: 80,
         itemCount: _articles.length,
